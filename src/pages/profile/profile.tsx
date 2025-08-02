@@ -3,7 +3,6 @@ import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { updateUser } from '../../services/slices/user/actions';
 import { getUser } from '../../services/slices/user/slice';
-import { useDispatch } from '../../services/store';
 
 import { TUser } from '@utils-types';
 
@@ -67,6 +66,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
-  return null;
 };

@@ -15,10 +15,15 @@ const Protected = ({
   const user = useSelector(getUser);
   const isAuthChecked = useSelector(getIsAuthChecked);
   const location = useLocation();
-  console.log('OnlyUnAuth render:', { user, isAuthChecked });
+
+  // url == "/profile", onlyUnAuth = false, user == null
+  // url == "/login", from: "/profile", onlyUnAuth = true, user == null
+  // url == "/login", from: "/profile", onlyUnAuth = true, user != null
+  // url == "/profile", onlyUnAuth = false, user != null
+  // url == "/profile", onlyUnAuth = false, user == null
 
   if (!isAuthChecked) {
-    return <p>Загрузка...</p>;
+    return <p>Загрузка....</p>;
   }
 
   if (!onlyUnAuth && !user) {

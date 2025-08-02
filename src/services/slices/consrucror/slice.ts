@@ -93,6 +93,7 @@ export const constructorBurgerSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(orderCreate.pending, (state) => {
+        state.orderRequest = true;
         state.loading = true;
         state.error = null;
       })
@@ -111,14 +112,19 @@ export const constructorBurgerSlice = createSlice({
   },
 
   selectors: {
-    setOrderRequest: (state) => state.orderRequest, 
-    setOrderModalData: (state) => state.orderModalData, 
-    getConstructorItems: (state) => state.constructorItems
+    setOrderRequest: (state) => state.orderRequest,
+    setOrderModalData: (state) => state.orderModalData, //Модалка заказа
+    getConstructorItems: (state) => state.constructorItems//Данные о булках и ингридиентах
+    setOrderStatus: (state) => state.loading //статус
   }
 });
 
-export const { setOrderRequest, setOrderModalData, getConstructorItems } =
-  constructorBurgerSlice.selectors;
+export const {   
+  setOrderRequest,
+  setOrderModalData,
+  getConstructorItems,
+  setOrderStatus
+} = constructorBurgerSlice.selectors;
 export const {
   addBunAndIngredient,
   deleteIngredient,

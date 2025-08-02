@@ -11,7 +11,13 @@ import {
 type TUserState = {
   user: TUser | null;
   isAuthChecked: boolean;
-  errorUser: string | null;
+  errorUser: string | undefined;
+};
+
+export const initialState: TUserState = {
+  user: null,
+  isAuthChecked: false,
+  errorUser: undefined
 };
 
 export const userSlice = createSlice({
@@ -24,13 +30,18 @@ export const userSlice = createSlice({
   },
   selectors: {
     getUser: (state) => state.user,
-    getIsAuthChecked: (state) => state.isAuthChecked
+    getIsAuthChecked: (state) => state.isAuthChecked,
+    getUserError: (state) => state.errorUser
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthChecked = true;
+        state.errorUser = undefined;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.errorUser = action.error.message;
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
@@ -41,17 +52,14 @@ export const userSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload;
       })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.errorUser = action.error.message;
+      })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.user = action.payload; // обновляем текущего пользователя
       });
   }
 });
 
-export const initialState: TUserState = {
-  user: null,
-  isAuthChecked: false,
-  errorUser: null
-};
-
 export const { setAuthChecked } = userSlice.actions;
-export const { getUser, getIsAuthChecked } = userSlice.selectors;
+export const { getUser, getIsAuthChecked, getUserError } = userSlice.selectors;

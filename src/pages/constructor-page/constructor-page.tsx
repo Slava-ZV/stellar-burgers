@@ -6,8 +6,8 @@ import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { getIngredientsLoadingStatus } from '../../services/slices/ingredients/slice';
+import { useSelector } from '../../services/store';
 
 export const ConstructorPage: FC = () => {
   /** TODO: взять переменную из стора */
