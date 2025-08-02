@@ -11,10 +11,10 @@ import {
   getConstructorItems,
   clearOrder,
   resetConstructor
-} from '../../services/slices/consrucror/slice';
+} from '../../services/slices/construcror/slice';
 import { getIsAuthChecked, getUser } from '../../services/slices/user/slice';
 import { useNavigate } from 'react-router-dom';
-import { orderCreate } from '../../services/slices/consrucror/actions';
+import { orderCreate } from '../../services/slices/construcror/actions';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
