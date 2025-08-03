@@ -1,5 +1,4 @@
 import { configureStore, combineSlices } from '@reduxjs/toolkit';
-import { configureStore } from '@reduxjs/toolkit';
 
 import {
   TypedUseSelectorHook,
@@ -7,14 +6,15 @@ import {
   useSelector as selectorHook
 } from 'react-redux';
 import { userSlice } from './slices/user/slice';
-import { ingridientsSlice } from './slices/ingridients/slice';
-import { constructorBurgerSlice } from './slices/construcror/slice';
+import { ingredientsSlice } from './slices/ingredients/slice';
+import { constructorBurgerSlice } from './slices/constructor/slice';
 import { getOrdersUserSlice } from './slices/order/slice';
 import { getOrderNumberUserSlice } from './slices/feed/slice';
 
+//делаем корневой редьюсер
 const rootReducer = combineSlices(
   userSlice,
-  ingridientsSlice,
+  ingredientsSlice,
   constructorBurgerSlice,
   getOrdersUserSlice,
   getOrderNumberUserSlice

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TIngredient } from '../../../utils/types';
-import { getIngredients } from './actions';
+import { TOrder } from '../../../utils/types';
+import { ordersUser } from './actions';
 
 //Данные заказов
 type TOrdersUser = {
@@ -9,14 +9,14 @@ type TOrdersUser = {
   loading: boolean;
 };
 
-//Пусто, изначальное состояние
+//Начальное состояние, все чистое
 export const initialState: TOrdersUser = {
   orders: [],
   error: null,
   loading: false
 };
 
-//Слайс номера заказов
+//слайс номера заказов
 export const getOrdersUserSlice = createSlice({
   name: 'ordersUser',
   initialState,

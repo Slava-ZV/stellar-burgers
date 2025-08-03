@@ -1,79 +1,27 @@
-import { useState, useRef, useEffect, FC, useMemo } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { FC, memo } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import { TTabMode } from '@utils-types';
-import { BurgerIngredientsUI } from '../ui/burger-ingredients';
-import { getIngredientsSelect } from '../../services/slices/ingredients/slice';
-import { useSelector } from 'react-redux';
-import { useSelector } from '../../services/store';
-import { createSelector } from '@reduxjs/toolkit';
+import { BurgerIngredientUI } from '@ui';
+import { TBurgerIngredientProps } from './type';
+import { useDispatch } from '../../services/store';
+import { addBunAndIngredient } from '../../services/slices/constructor/slice';
 
-export const BurgerIngredients: FC = () => {
-  //извлекаем ингридиенты
-  const selectBuns = createSelector([getIngredientsSelect], (ingredients) =>
-    ingredients.filter((ing) => ing.type === 'bun')
-  );
-  const selectMains = createSelector([getIngredientsSelect], (ingredients) =>
-    ingredients.filter((ing) => ing.type === 'main')
-  );
-  const selectSauces = createSelector([getIngredientsSelect], (ingredients) =>
-    ingredients.filter((ing) => ing.type === 'sauce')
-  );
+export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
+  ({ ingredient, count }) => {
+    const dispatch = useDispatch();
+    const location = useLocation();
 
-  const buns = useSelector(selectBuns);
-  const mains = useSelector(selectMains);
-  const sauces = useSelector(selectSauces);
+    const handleAdd = () => {
+      dispatch(addBunAndIngredient(ingredient));
+    };
 
-  const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
-  const titleBunRef = useRef<HTMLHeadingElement>(null);
-  const titleMainRef = useRef<HTMLHeadingElement>(null);
-  const titleSaucesRef = useRef<HTMLHeadingElement>(null);
-
-  const [bunsRef, inViewBuns] = useInView({
-    threshold: 0
-  });
-
-  const [mainsRef, inViewFilling] = useInView({
-    threshold: 0
-  });
-
-  const [saucesRef, inViewSauces] = useInView({
-    threshold: 0
-  });
-
-  useEffect(() => {
-    if (inViewBuns) {
-      setCurrentTab('bun');
-    } else if (inViewSauces) {
-      setCurrentTab('sauce');
-    } else if (inViewFilling) {
-      setCurrentTab('main');
-    }
-  }, [inViewBuns, inViewFilling, inViewSauces]);
-
-  const onTabClick = (tab: string) => {
-    setCurrentTab(tab as TTabMode);
-    if (tab === 'bun')
-      titleBunRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (tab === 'main')
-      titleMainRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (tab === 'sauce')
-      titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  return (
-    <BurgerIngredientsUI
-      currentTab={currentTab}
-      buns={buns}
-      mains={mains}
-      sauces={sauces}
-      titleBunRef={titleBunRef}
-      titleMainRef={titleMainRef}
-      titleSaucesRef={titleSaucesRef}
-      bunsRef={bunsRef}
-      mainsRef={mainsRef}
-      saucesRef={saucesRef}
-      onTabClick={onTabClick}
-    />
-  );
-};
+    return (
+      <BurgerIngredientUI
+        ingredient={ingredient}
+        count={count}
+        locationState={{ background: location }}
+        handleAdd={handleAdd}
+      />
+    );
+  }
+);

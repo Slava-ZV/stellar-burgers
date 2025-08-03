@@ -9,7 +9,6 @@ import {
   ProfileOrders,
   NotFound404
 } from '@pages';
-
 import '../../index.css';
 import styles from './app.module.css';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -26,17 +25,17 @@ const App = () => {
   const dispatch = useDispatch();
   const backgroundLocation = location.state && location.state.background;
 
-  //закрытие модалки, возвращаем на главную
+  //закрываем модальное окно и перенаправляем на главную
   const onClose = () => {
     navigate(-1);
   };
 
-  //диспатчим ингридиенты и проверяем авторизацию
+  //диспатч ингридиентов
   useEffect(() => {
     dispatch(checkUserAuth());
     dispatch(getIngredients());
   }, []);
-
+  //проверяем авторизацию
   return (
     <div className={styles.app}>
       <AppHeader />

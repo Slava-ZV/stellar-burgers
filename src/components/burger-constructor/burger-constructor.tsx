@@ -1,8 +1,5 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
-import { BurgerConstructorUI } from '@ui';
-import { useDispatch } from '../../services/store';
-import { useSelector } from 'react-redux';
 import { BurgerConstructorUI, Preloader } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
 import {
@@ -11,13 +8,12 @@ import {
   getConstructorItems,
   clearOrder,
   resetConstructor
-} from '../../services/slices/construcror/slice';
+} from '../../services/slices/constructor/slice';
 import { getIsAuthChecked, getUser } from '../../services/slices/user/slice';
 import { useNavigate } from 'react-router-dom';
-import { orderCreate } from '../../services/slices/construcror/actions';
+import { orderCreate } from '../../services/slices/constructor/actions';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useSelector(getConstructorItems);
   const orderRequest = useSelector(setOrderRequest);
   const orderModalData = useSelector(setOrderModalData);
@@ -27,7 +23,7 @@ export const BurgerConstructor: FC = () => {
   const user = useSelector(getUser);
 
   const onOrderClick = () => {
-     if (!isAuthChecked || user === null) {
+    if (!isAuthChecked || user === null) {
       navigate('/login');
       return;
     }

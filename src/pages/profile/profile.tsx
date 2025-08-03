@@ -1,13 +1,11 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
 import { updateUser } from '../../services/slices/user/actions';
 import { getUser } from '../../services/slices/user/slice';
-
 import { TUser } from '@utils-types';
 
 export const Profile: FC = () => {
-  
   const dispatch = useDispatch();
   const user = useSelector(getUser) as TUser;
 
