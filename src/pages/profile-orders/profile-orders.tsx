@@ -1,6 +1,5 @@
 import { ProfileOrdersUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
-import { FC } from 'react';
 import { FC, useEffect } from 'react';
 import { ordersUser } from '../../services/slices/order/actions';
 import {
