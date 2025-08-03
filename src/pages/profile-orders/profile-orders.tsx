@@ -14,7 +14,7 @@ export const ProfileOrders: FC = () => {
   const orders: TOrder[] = useSelector(getOrdersUser);
   const loading = useSelector(getOrdersUserLoadingStatus);
 
- useEffect(() => {
+  useEffect(() => {
     dispatch(ordersUser()); //опция получения заказов
   }, []);
 
