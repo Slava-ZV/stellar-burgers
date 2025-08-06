@@ -129,3 +129,5 @@ export const {
   moveIngredientDown,
   resetConstructor
 } = constructorBurgerSlice.actions;
+
+export default constructorBurgerSlice.reducer;
